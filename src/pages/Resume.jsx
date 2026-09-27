@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import SectionTitle from '../components/SectionTitle';
 import { profileData } from '../data/profile';
 import { projectsData } from '../data/projects';
@@ -126,41 +126,46 @@ export default function Resume() {
           <h2 className="text-xs font-bold uppercase tracking-wider text-blue-700 border-b border-slate-200 pb-1">
             PROJECTS
           </h2>
-          {projectsData.map((project) => (
-            <div key={project.id} className="space-y-2">
-              <div className="flex flex-wrap items-center justify-between text-xs sm:text-sm">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-bold text-slate-900">{project.title}</span>
-                  <span className="text-slate-400">|</span>
-                  <span className="text-blue-700 font-medium">
-                    {project.technologies.join(', ')}
-                  </span>
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-blue-600 hover:underline ml-1"
-                  >
-                    [Live Demo]
-                  </a>
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-blue-600 hover:underline"
-                  >
-                    [GitHub]
-                  </a>
+          {projectsData
+            .filter((p) => p.inResume)
+            .map((project) => (
+              <div key={project.id} className="space-y-2">
+                <div className="flex flex-wrap items-center justify-between text-xs sm:text-sm gap-y-1">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="font-bold text-slate-900">{project.title}</span>
+                    {project.subtitle && (
+                      <span className="text-slate-700 font-medium"> — {project.subtitle}</span>
+                    )}
+                    <span className="text-slate-400">|</span>
+                    <span className="text-blue-700 font-medium">
+                      {project.technologies.join(', ')}
+                    </span>
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-blue-600 hover:underline font-semibold ml-1"
+                    >
+                      [Live Demo]
+                    </a>
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-blue-600 hover:underline font-semibold"
+                    >
+                      [GitHub]
+                    </a>
+                  </div>
+                  <span className="text-xs text-slate-500 font-mono">{project.year}</span>
                 </div>
-                <span className="text-xs text-slate-500">{project.year}</span>
+                <ul className="text-xs sm:text-sm text-slate-600 space-y-1.5 list-disc list-inside leading-relaxed">
+                  {project.description.map((bullet, i) => (
+                    <li key={i}>{bullet}</li>
+                  ))}
+                </ul>
               </div>
-              <ul className="text-xs sm:text-sm text-slate-600 space-y-1.5 list-disc list-inside leading-relaxed">
-                {project.description.map((bullet, i) => (
-                  <li key={i}>{bullet}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            ))}
         </section>
 
         {/* Education */}

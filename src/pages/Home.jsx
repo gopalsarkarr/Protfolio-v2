@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, FileDown, Code2, GraduationCap, FolderGit2 } from 'lucide-react';
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from '../components/Icons';
@@ -149,7 +149,7 @@ export default function Home() {
               </div>
               <h3 className="text-sm sm:text-base font-bold font-mono text-slate-900">Featured Project</h3>
               <p className="text-xs font-mono text-slate-600 mt-1 leading-relaxed">
-                {featuredProject.title} — Built with React, Vite, Tailwind CSS, Supabase, and Recharts.
+                {featuredProject.title} — {featuredProject.tagline}
               </p>
             </div>
             <Link to="/projects" className="mt-4 inline-flex items-center text-xs font-mono font-medium text-blue-600 hover:text-blue-800">

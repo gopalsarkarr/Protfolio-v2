@@ -1,19 +1,43 @@
-﻿import React from 'react';
+import React from 'react';
 import { Layers, ArrowUpRight } from 'lucide-react';
 import { GithubIcon as Github } from './Icons';
 
 export default function ProjectCard({ project }) {
-  const { title, year, tagline, description, technologies, liveUrl, githubUrl, deployment } = project;
+  const {
+    title,
+    subtitle,
+    year,
+    tagline,
+    description,
+    technologies,
+    liveUrl,
+    githubUrl,
+    deployment,
+    highlight
+  } = project;
 
   return (
-    <div className="group relative rounded-xl bg-white border border-slate-200 hover:border-blue-400 p-6 flex flex-col justify-between transition-all duration-200 shadow-xs hover:shadow-md">
-      
+    <div
+      className={`group relative rounded-xl bg-white p-6 flex flex-col justify-between transition-all duration-300 ${
+        highlight
+          ? 'border-2 border-blue-500/80 shadow-[0_0_28px_rgba(59,130,246,0.20)] hover:shadow-[0_0_40px_rgba(59,130,246,0.30)] hover:border-blue-600 ring-2 ring-blue-400/30'
+          : 'border border-slate-200 hover:border-blue-400 shadow-xs hover:shadow-md'
+      }`}
+    >
+      {/* Subtle glowing halo/light around the highlighted project */}
+      {highlight && (
+        <div
+          className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-500/25 via-cyan-400/30 to-indigo-500/25 blur-md -z-10 pointer-events-none transition-all duration-300 group-hover:blur-lg group-hover:from-blue-500/35 group-hover:to-indigo-500/35"
+          aria-hidden="true"
+        />
+      )}
+
       <div>
-        {/* Header: Title, Year & Deployment */}
+        {/* Header: Title, Subtitle, Year & Deployment */}
         <div className="flex items-start justify-between gap-4 mb-3">
           <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-xl font-bold font-mono text-slate-900 group-hover:text-blue-600 transition-colors">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h3 className="text-lg sm:text-xl font-bold font-mono text-slate-900 group-hover:text-blue-600 transition-colors">
                 {title}
               </h3>
               {year && (
@@ -22,15 +46,22 @@ export default function ProjectCard({ project }) {
                 </span>
               )}
             </div>
+
+            {subtitle && (
+              <p className="text-xs font-mono font-semibold text-blue-600 mt-1">
+                // {subtitle}
+              </p>
+            )}
+
             {tagline && (
-              <p className="text-xs font-mono text-slate-600 font-medium mt-1">
+              <p className="text-xs font-mono text-slate-600 font-medium mt-1 leading-relaxed">
                 {tagline}
               </p>
             )}
           </div>
-          
+
           {deployment && (
-            <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-mono text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded font-medium">
+            <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-mono text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded font-medium shrink-0">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               {deployment}
             </span>
@@ -38,7 +69,7 @@ export default function ProjectCard({ project }) {
         </div>
 
         {/* Bullet description */}
-        <ul className="mt-4 space-y-2 text-xs sm:text-sm font-mono text-slate-600 leading-relaxed list-disc list-inside marker:text-blue-600">
+        <ul className="mt-4 space-y-2.5 text-xs sm:text-sm font-mono text-slate-600 leading-relaxed list-disc list-inside marker:text-blue-600">
           {Array.isArray(description) ? (
             description.map((point, index) => (
               <li key={index} className="pl-1">
@@ -94,7 +125,6 @@ export default function ProjectCard({ project }) {
           </a>
         )}
       </div>
-
     </div>
   );
 }
